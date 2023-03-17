@@ -1,5 +1,6 @@
 import { createSlice, configureStore, combineReducers } from "@reduxjs/toolkit";
 import { authSlice } from "./AuthSlice/AuthSlice";
+import { translationsSlice } from "./TranslationsSlice/TranslationsSlice";
 
 const counterSlice = createSlice({
   name: "counter",
@@ -23,7 +24,8 @@ const counterSlice = createSlice({
 
 const rootReducer = combineReducers({
     counter: counterSlice.reducer,
-    auth: authSlice.reducer
+    auth: authSlice.reducer,
+    translations: translationsSlice.reducer
 })
 
 export const store = configureStore({
