@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, MouseEvent } from "react";
 import {
   Copyright,
   Container,
@@ -6,37 +6,41 @@ import {
   Box,
   Typography,
   TextField,
-  FormControlLabel,
   Button,
-  Checkbox,
-  Grid,
-  Link,
 } from "../../components";
 import { useTranslationsContext } from "../../i18n/TranslationsContext";
+import { register } from "../../services/register";
 import { LoginInput } from "./types";
 
-
-export const LogIn = () => {
+export const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
+
   const t = useTranslationsContext();
 
   const handleTextInput =
     (key: LoginInput) =>
-    ({
-      target: { value: inputValue },
-    }: ChangeEvent<HTMLInputElement>) => {
+    ({ target: { value: inputValue } }: ChangeEvent<HTMLInputElement>) => {
       switch (key) {
         case "password":
           setPassword(inputValue);
+          break;
         case "username":
           setUsername(inputValue);
+          break;
         default:
           throw new Error("Unknown input.");
       }
     };
 
-  const handleSubmit = () => {};
+  const handleSubmit = async () => {
+    try {
+      const registerResult = await register(username, password);
+    } catch (err) {
+        setError(true);
+    }
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -75,34 +79,18 @@ export const LogIn = () => {
             id="password"
             autoComplete="current-password"
             value={password}
-            onChange={handleTextInput("username")}
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label={t("login_remember_me")}
+            onChange={handleTextInput("password")}
           />
           <Button
-            type="submit"
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
-            onClick={() => {}}
+            onClick={(e) => handleSubmit()}
           >
             {t("login")}
           </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                {t("forgot_password")}
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link href="#" variant="body2">
-                {t("prompt_register")}
-              </Link>
-            </Grid>
-          </Grid>
         </Box>
+        {error && "NIE UDAŁO SIE SORKA"}
       </Box>
       <Copyright sx={{ mt: 8, mb: 4 }} />
     </Container>

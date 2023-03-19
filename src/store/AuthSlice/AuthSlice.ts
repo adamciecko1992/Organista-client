@@ -18,3 +18,4 @@ export const authSlice = createSlice({
 
 export const authenticate = authSlice.actions.login;
 export const deauthenticate = authSlice.actions.logout;
+
