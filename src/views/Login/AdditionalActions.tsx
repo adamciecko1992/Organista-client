@@ -11,7 +11,7 @@ export const AdditionalActions = () => {
         </Link>
       </Grid>
       <Grid item>
-        <Link href="#" variant="body2">
+        <Link href="register/" variant="body2">
           {t("prompt_register")}
         </Link>
       </Grid>
