@@ -29,8 +29,10 @@ export const LogIn = () => {
       switch (key) {
         case "password":
           setPassword(inputValue);
+          break;
         case "username":
           setUsername(inputValue);
+          break;
         default:
           throw new Error("Unknown input.");
       }
@@ -75,7 +77,7 @@ export const LogIn = () => {
             id="password"
             autoComplete="current-password"
             value={password}
-            onChange={handleTextInput("username")}
+            onChange={handleTextInput("password")}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
