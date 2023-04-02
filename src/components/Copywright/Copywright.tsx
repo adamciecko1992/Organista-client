@@ -13,7 +13,6 @@ export function Copyright(props: any) {
          Organista 
         </Link>
         {new Date().getFullYear()}
-        {"."}
       </Typography>
     );
   }
