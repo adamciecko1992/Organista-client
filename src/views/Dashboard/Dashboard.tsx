@@ -1,4 +1,7 @@
 import { Typography, Grid, Box, Card, CardMedia,CardContent } from "../../components";
+import clinicImg from "../../assets/clinic.jpg";
+import garageImg from "../../assets/garage.jpg";
+import shopImg from "../../assets/shop.jpg"
 import { useTranslationsContext } from "../../i18n/TranslationsContext";
 
 export const Dashboard = () => {
@@ -6,15 +9,15 @@ export const Dashboard = () => {
   const cardData = [
     {
       title: t("dashboard_garage"),
-      image: "https://via.placeholder.com/150",
+      image: garageImg,
     },
     {
       title: t("dashboard_clinic"),
-      image: "https://via.placeholder.com/150",
+      image: clinicImg,
     },
     {
       title: t("dashboard_shop"),
-      image: "https://via.placeholder.com/150",
+      image: shopImg,
     },
   ];
 
