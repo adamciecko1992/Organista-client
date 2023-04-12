@@ -11,6 +11,9 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Divider from "@mui/material/Divider"
 import Paper from "@mui/material/Paper"
+import Card from "@mui/material/Card";
+import CardMedia from "@mui/material/CardMedia"
+import  CardContent from "@mui/material/CardContent";
 import { Header } from "./Header/Header";
 import { Footer } from "./Footer/Footer";
 import { Layout } from "./Layout/Layout";
@@ -30,5 +33,8 @@ export {
     Paper,
     Header,
     Footer,
-    Layout
+    Layout,
+    Card,
+    CardMedia,
+    CardContent
 }

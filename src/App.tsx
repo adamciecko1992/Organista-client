@@ -7,13 +7,13 @@ import { Layout } from "./components";
 
 function App() {
   return (
-    <Layout>
-      <BrowserRouter>
+    <BrowserRouter>
+      <Layout>
         <Route path="/" exact component={LogIn} />
         <Route path="/register" component={Register} />
         <Route path="/dashboard" component={Dashboard} />
-      </BrowserRouter>
-    </Layout>
+      </Layout>
+    </BrowserRouter>
   );
 }
 

@@ -1,51 +1,61 @@
-import {Typography,  Grid, Paper, Divider, Button} from "../../components"
+import { Typography, Grid, Box, Card, CardMedia,CardContent } from "../../components";
+import { useTranslationsContext } from "../../i18n/TranslationsContext";
 
 export const Dashboard = () => {
+  const t = useTranslationsContext();
+  const cardData = [
+    {
+      title: t("dashboard_garage"),
+      image: "https://via.placeholder.com/150",
+    },
+    {
+      title: t("dashboard_clinic"),
+      image: "https://via.placeholder.com/150",
+    },
+    {
+      title: t("dashboard_shop"),
+      image: "https://via.placeholder.com/150",
+    },
+  ];
+
   return (
-    <>
-      <Grid container gap={3}>
-        <Grid item xs={12}>
-          <Paper>
-            <Typography variant="h4">Organ Trading Game Dashboard</Typography>
-          </Paper>
+   
+      <Box
+        sx={{
+          paddingY:"10%",
+          height: '80%',
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Grid container spacing={3} justifyContent="center">
+          {cardData.map((card, index) => (
+            <Grid item key={index} xs={12} sm={6} md={4}>
+              <Card
+                sx={{
+                  height: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                }}
+              >
+                <CardMedia
+                  component="img"
+                  sx={{ height: '60%', width: '100%', objectFit: 'cover' }}
+                  image={card.image}
+                  alt={card.title}
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="p" textAlign="center" >
+                    {card.title}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
         </Grid>
-        <Grid item xs={12} md={6}>
-          <Paper>
-            <Typography variant="h5">Current Inventory</Typography>
-            <Divider />
-            <Typography variant="body1">Liver: 5</Typography>
-            <Typography variant="body1">Kidney: 10</Typography>
-            <Typography variant="body1">Heart: 3</Typography>
-            <Button variant="contained" color="primary">
-              Refresh
-            </Button>
-          </Paper>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Paper>
-            <Typography variant="h5">Organ Prices</Typography>
-            <Divider />
-            <Typography variant="body1">Liver: $50,000</Typography>
-            <Typography variant="body1">Kidney: $20,000</Typography>
-            <Typography variant="body1">Heart: $100,000</Typography>
-            <Button variant="contained" color="primary">
-              Refresh
-            </Button>
-          </Paper>
-        </Grid>
-        <Grid item xs={12}>
-          <Paper>
-            <Typography variant="h5">Recent Transactions</Typography>
-            <Divider />
-            <Typography variant="body1">
-              John Doe bought a liver for $50,000 from Jane Smith.
-            </Typography>
-            <Typography variant="body1">
-              Jane Smith sold a kidney for $20,000 to John Doe.
-            </Typography>
-          </Paper>
-        </Grid>
-      </Grid>
-    </>
-  );
+      </Box>
+    );
 };

@@ -50,7 +50,9 @@ export const LogIn = () => {
 	};
 
 	return (
-		<Container component="main" maxWidth="xs" >
+		<Container component="main" maxWidth="xs" sx={{
+			
+		}} >
 			<Box
 				sx={{
 					display: "flex",
