@@ -1,10 +1,9 @@
-import React from 'react';
-import { Grid, Paper, Typography, Button, Divider } from '@mui/material';
+import {Typography,  Grid, Paper, Divider, Button} from "../../components"
 
-export const  Dashboard = () => {
+export const Dashboard = () => {
   return (
-    <div>
-      <Grid container spacing={3}>
+    <>
+      <Grid container gap={3}>
         <Grid item xs={12}>
           <Paper>
             <Typography variant="h4">Organ Trading Game Dashboard</Typography>
@@ -17,7 +16,9 @@ export const  Dashboard = () => {
             <Typography variant="body1">Liver: 5</Typography>
             <Typography variant="body1">Kidney: 10</Typography>
             <Typography variant="body1">Heart: 3</Typography>
-            <Button variant="contained" color="primary">Refresh</Button>
+            <Button variant="contained" color="primary">
+              Refresh
+            </Button>
           </Paper>
         </Grid>
         <Grid item xs={12} md={6}>
@@ -27,18 +28,24 @@ export const  Dashboard = () => {
             <Typography variant="body1">Liver: $50,000</Typography>
             <Typography variant="body1">Kidney: $20,000</Typography>
             <Typography variant="body1">Heart: $100,000</Typography>
-            <Button variant="contained" color="primary">Refresh</Button>
+            <Button variant="contained" color="primary">
+              Refresh
+            </Button>
           </Paper>
         </Grid>
         <Grid item xs={12}>
           <Paper>
             <Typography variant="h5">Recent Transactions</Typography>
             <Divider />
-            <Typography variant="body1">John Doe bought a liver for $50,000 from Jane Smith.</Typography>
-            <Typography variant="body1">Jane Smith sold a kidney for $20,000 to John Doe.</Typography>
+            <Typography variant="body1">
+              John Doe bought a liver for $50,000 from Jane Smith.
+            </Typography>
+            <Typography variant="body1">
+              Jane Smith sold a kidney for $20,000 to John Doe.
+            </Typography>
           </Paper>
         </Grid>
       </Grid>
-    </div>
+    </>
   );
-}
+};

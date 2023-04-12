@@ -11,6 +11,9 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Divider from "@mui/material/Divider"
 import Paper from "@mui/material/Paper"
+import { Header } from "./Header/Header";
+import { Footer } from "./Footer/Footer";
+import { Layout } from "./Layout/Layout";
 
 export {
     Box,
@@ -24,5 +27,8 @@ export {
     Typography,
     Container,
     Divider,
-    Paper
+    Paper,
+    Header,
+    Footer,
+    Layout
 }
