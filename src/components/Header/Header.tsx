@@ -6,7 +6,7 @@ export const Header = () => {
       sx={{
         width: "100%",
         height:"10vh",
-        backgroundColor: "red",
+        background:"red"
       }}
     >
       Header

@@ -56,7 +56,7 @@ export const Register = () => {
 			<CssBaseline />
 			<Box
 				sx={{
-					marginTop: 8,
+					paddingY: "25%",
 					display: "flex",
 					flexDirection: "column",
 					alignItems: "center",
@@ -118,7 +118,7 @@ export const Register = () => {
 				</Box>
 				{error && "NIE UDAŁO SIE SORKA"}
 			</Box>
-			<Copyright sx={{ mt: 8, mb: 4 }} />
+			<Copyright/>
 		</Container>
 	);
 };

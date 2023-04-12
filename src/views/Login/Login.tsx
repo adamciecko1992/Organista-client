@@ -50,12 +50,13 @@ export const LogIn = () => {
 	};
 
 	return (
-		<Container component="main" maxWidth="xs">
+		<Container component="main" maxWidth="xs" >
 			<Box
 				sx={{
 					display: "flex",
 					flexDirection: "column",
 					alignItems: "center",
+					paddingTop:"30%"
 				}}
 			>
 				<Typography component="h1" variant="h5">
