@@ -1,0 +1,14 @@
+#options {
+	box-shadow: 0 0 5px 1px #222;
+
+	transition: transform 0.3s, box-shadow 0.3s;
+}
+
+#options:hover {
+	box-shadow: 0 0 15px 2px #222;
+	transform: scale(104%, 104%);
+}
+
+a {
+	text-decoration: none;
+}

@@ -1,0 +1,14 @@
+body {
+	height: 100%;
+	overflow: auto;
+	margin: 0;
+	padding: 0;
+
+	@media screen and (min-width:899px) {
+        overflow: hidden;
+    }
+}
+
+#root {
+	background-color: #c6c6c6;
+}
