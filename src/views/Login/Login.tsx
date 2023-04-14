@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent } from "react";
 import {
 	Copyright,
 	Container,
@@ -39,8 +39,9 @@ export const LogIn = () => {
 			}
 		};
 
-	const handleSubmit = async () => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		try {
+			e.preventDefault();
 			const loginResult = await login(username, password);
 			if (loginResult?.status !== 201) throw new Error("LoginError");
 			history.push("/dashboard/");
@@ -50,15 +51,13 @@ export const LogIn = () => {
 	};
 
 	return (
-		<Container component="main" maxWidth="xs" sx={{
-			
-		}} >
+		<Container component="main" maxWidth="xs" sx={{}}>
 			<Box
 				sx={{
 					display: "flex",
 					flexDirection: "column",
 					alignItems: "center",
-					paddingTop:"30%"
+					paddingTop: "30%",
 				}}
 			>
 				<Typography component="h1" variant="h5">
@@ -66,7 +65,7 @@ export const LogIn = () => {
 				</Typography>
 				<Box
 					component="form"
-					onSubmit={() => {}}
+					onSubmit={handleSubmit}
 					noValidate
 					sx={{ mt: 1 }}
 				>
@@ -77,7 +76,7 @@ export const LogIn = () => {
 						id="email"
 						label="Email Address"
 						name="email"
-						autoComplete="email"
+						autoComplete="email-address"
 						autoFocus
 						value={username}
 						onChange={handleTextInput("username")}
@@ -103,7 +102,6 @@ export const LogIn = () => {
 						fullWidth
 						variant="contained"
 						sx={{ mt: 3, mb: 2 }}
-						onClick={() => handleSubmit()}
 					>
 						{t("login")}
 					</Button>

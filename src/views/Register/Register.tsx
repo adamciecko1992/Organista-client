@@ -41,8 +41,9 @@ export const Register = () => {
 			}
 		};
 
-	const handleSubmit = async () => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		try {
+			e.preventDefault();
 			const registerResult = await register(email, username, password);
 			if (registerResult?.status !== 201) throw new Error("Bad request");
 			history.push("/dashboard/");
@@ -67,7 +68,7 @@ export const Register = () => {
 				</Typography>
 				<Box
 					component="form"
-					onSubmit={() => {}}
+					onSubmit={handleSubmit}
 					noValidate
 					sx={{ mt: 1 }}
 				>
@@ -111,7 +112,7 @@ export const Register = () => {
 						fullWidth
 						variant="contained"
 						sx={{ mt: 3, mb: 2 }}
-						onClick={(e) => handleSubmit()}
+						type="submit"
 					>
 						{t("register")}
 					</Button>
