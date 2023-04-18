@@ -45,8 +45,9 @@ export const Register = () => {
 		try {
 			e.preventDefault();
 			const registerResult = await register(email, username, password);
-			if (registerResult?.status !== 201) throw new Error("Bad request");
-			history.push("/dashboard/");
+			console.log(registerResult);
+			// if (registerResult?.status !== 201) throw new Error("Bad request");
+			// history.push("/dashboard/");
 		} catch (err) {
 			setError(true);
 		}

@@ -1,13 +1,15 @@
 import axios from "axios";
+import HashPassword from "../utils/hashing";
+import serverUrl from "./serverUrl";
 
 export async function login(username: string, password: string) {
 	try {
 		const res = await axios({
 			method: "post",
-			url: "http://127.0.0.1:8000/iop/login/",
+			url: `${serverUrl}/login/`,
 			data: {
 				username,
-				password,
+				password: HashPassword(password),
 			},
 		});
 		return res;

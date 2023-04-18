@@ -1,4 +1,6 @@
 import axios from "axios";
+import HashPassword from "../utils/hashing";
+import serverUrl from "./serverUrl";
 
 export async function register(
 	email: string,
@@ -8,11 +10,15 @@ export async function register(
 	try {
 		const res = await axios({
 			method: "post",
-			url: "http://127.0.0.1:8000/iop/register/",
+			headers: {
+				"Accept": "application/json",
+				"Content-Type": "application/json",
+			},
+			url: `${serverUrl}/register/`,
 			data: {
 				email,
 				username,
-				password,
+				password: HashPassword(password),
 			},
 		});
 		return res;
