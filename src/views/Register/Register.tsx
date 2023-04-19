@@ -11,7 +11,7 @@ import {
 import { useTranslationsContext } from "../../i18n/TranslationsContext";
 import { register } from "../../services/register";
 import { LoginInput } from "./types";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const Register = () => {
 	const [email, setEmail] = useState("");
@@ -21,7 +21,7 @@ export const Register = () => {
 
 	const t = useTranslationsContext();
 
-	const history = useHistory();
+	const nav = useNavigate();
 
 	const handleTextInput =
 		(key: LoginInput) =>
@@ -47,7 +47,7 @@ export const Register = () => {
 			const registerResult = await register(email, username, password);
 			console.log(registerResult);
 			// if (registerResult?.status !== 201) throw new Error("Bad request");
-			// history.push("/dashboard/");
+			// nav("/dashboard/");
 		} catch (err) {
 			setError(true);
 		}

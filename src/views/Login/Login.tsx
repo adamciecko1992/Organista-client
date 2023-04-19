@@ -14,7 +14,7 @@ import { useTranslationsContext } from "../../i18n/TranslationsContext";
 import { LoginInput } from "./types";
 import { AdditionalActions } from "./AdditionalActions";
 import { login } from "../../services/login";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../store";
 import { authenticate } from "../../store/AuthSlice/AuthSlice";
 
@@ -26,7 +26,7 @@ export const LogIn = () => {
 
 	const dispatch = useAppDispatch();
 
-	const history = useHistory();
+	const nav = useNavigate();
 
 	const handleTextInput =
 		(key: LoginInput) =>
@@ -48,10 +48,10 @@ export const LogIn = () => {
 			e.preventDefault();
 			const loginResult = await login(email, password);
 			if (loginResult?.status !== 202) throw new Error("LoginError");
-			
+
 			dispatch(authenticate(loginResult.data.session_id));
 
-			history.push("/dashboard/");
+			nav("/dashboard/");
 		} catch (err) {
 			setError(true);
 		}
