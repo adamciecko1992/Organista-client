@@ -17,7 +17,7 @@ export const Register = () => {
 	const [email, setEmail] = useState("");
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
-	const [error, setError] = useState(false);
+	const [error, setError] = useState({ show: false, message: "" });
 
 	const t = useTranslationsContext();
 
@@ -45,11 +45,12 @@ export const Register = () => {
 		try {
 			e.preventDefault();
 			const registerResult = await register(email, username, password);
-			console.log(registerResult);
-			// if (registerResult?.status !== 201) throw new Error("Bad request");
-			// nav("/dashboard/");
-		} catch (err) {
-			setError(true);
+
+			if (registerResult?.status === 201) nav("/dashboard/");
+			else throw new Error(registerResult.response.data.detail);
+		} catch (err: any) {
+			console.error(err);
+			setError({ show: true, message: err.message });
 		}
 	};
 
@@ -67,12 +68,7 @@ export const Register = () => {
 				<Typography component="h1" variant="h5">
 					{t("register")}
 				</Typography>
-				<Box
-					component="form"
-					onSubmit={handleSubmit}
-					noValidate
-					sx={{ mt: 1 }}
-				>
+				<Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
 					<TextField
 						margin="normal"
 						required
@@ -118,9 +114,9 @@ export const Register = () => {
 						{t("register")}
 					</Button>
 				</Box>
-				{error && "NIE UDAŁO SIE SORKA"}
+				{error.show && error.message}
 			</Box>
-			<Copyright/>
+			<Copyright />
 		</Container>
 	);
 };

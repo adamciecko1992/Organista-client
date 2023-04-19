@@ -12,9 +12,8 @@ export async function login(email: string, password: string) {
 				password: HashPassword(password),
 			},
 		});
-		console.log(res)
 		return res;
 	} catch (error: any) {
-		console.error("Sign in unsuccessfull", error.response.data.detail);
+		return error;
 	}
 }

@@ -23,6 +23,6 @@ export async function register(
 		});
 		return res;
 	} catch (error: any) {
-		console.error("Sign up unsuccessfull", error.response.data.detail);
+		return error;
 	}
 }
