@@ -12,6 +12,8 @@ import { useTranslationsContext } from "../../i18n/TranslationsContext";
 import { register } from "../../services/register";
 import { LoginInput } from "./types";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../store";
+import { authenticate } from "../../store/AuthSlice/AuthSlice";
 
 export const Register = () => {
 	const [email, setEmail] = useState("");
@@ -22,6 +24,7 @@ export const Register = () => {
 	const t = useTranslationsContext();
 
 	const nav = useNavigate();
+	const dispatch = useAppDispatch();
 
 	const handleTextInput =
 		(key: LoginInput) =>
@@ -46,8 +49,11 @@ export const Register = () => {
 			e.preventDefault();
 			const registerResult = await register(email, username, password);
 
-			if (registerResult?.status === 201) nav("/dashboard/");
-			else throw new Error(registerResult.response.data.detail);
+			if (registerResult?.status === 201) {
+				dispatch(authenticate(registerResult.data.session_id));
+
+				nav("/dashboard/");
+			} else throw new Error(registerResult.response.data.detail);
 		} catch (err: any) {
 			console.error(err);
 			setError({ show: true, message: err.message });
