@@ -2,18 +2,19 @@ import axios from "axios";
 import HashPassword from "../utils/hashing";
 import serverUrl from "./serverUrl";
 
-export async function login(username: string, password: string) {
+export async function login(email: string, password: string) {
 	try {
 		const res = await axios({
 			method: "post",
 			url: `${serverUrl}/login/`,
 			data: {
-				username,
+				email,
 				password: HashPassword(password),
 			},
 		});
+		console.log(res)
 		return res;
-	} catch (error) {
-		console.error("Sign in unsuccessfull", error);
+	} catch (error: any) {
+		console.error("Sign in unsuccessfull", error.response.data.detail);
 	}
 }

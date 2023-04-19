@@ -15,12 +15,16 @@ import { LoginInput } from "./types";
 import { AdditionalActions } from "./AdditionalActions";
 import { login } from "../../services/login";
 import { useHistory } from "react-router-dom";
+import { useAppDispatch } from "../../store";
+import { authenticate } from "../../store/AuthSlice/AuthSlice";
 
 export const LogIn = () => {
-	const [username, setUsername] = useState("");
+	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState(false);
 	const t = useTranslationsContext();
+
+	const dispatch = useAppDispatch();
 
 	const history = useHistory();
 
@@ -31,8 +35,8 @@ export const LogIn = () => {
 				case "password":
 					setPassword(inputValue);
 					break;
-				case "username":
-					setUsername(inputValue);
+				case "email":
+					setEmail(inputValue);
 					break;
 				default:
 					throw new Error("Unknown input.");
@@ -42,8 +46,11 @@ export const LogIn = () => {
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		try {
 			e.preventDefault();
-			const loginResult = await login(username, password);
-			if (loginResult?.status !== 201) throw new Error("LoginError");
+			const loginResult = await login(email, password);
+			if (loginResult?.status !== 202) throw new Error("LoginError");
+			
+			dispatch(authenticate(loginResult.data.session_id));
+
 			history.push("/dashboard/");
 		} catch (err) {
 			setError(true);
@@ -78,8 +85,8 @@ export const LogIn = () => {
 						name="email"
 						autoComplete="email-address"
 						autoFocus
-						value={username}
-						onChange={handleTextInput("username")}
+						value={email}
+						onChange={handleTextInput("email")}
 					/>
 					<TextField
 						margin="normal"
