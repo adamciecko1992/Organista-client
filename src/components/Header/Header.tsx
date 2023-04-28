@@ -4,15 +4,38 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button, useTheme } from "@mui/material";
 import { useAppSelector } from "../../store/useSelector";
 import { useAppDispatch } from "../../store";
-import { deauthenticate } from "../../store/AuthSlice/AuthSlice";
+import {
+	checkSession,
+	deauthenticate,
+	deleteSession,
+} from "../../store/AuthSlice/AuthSlice";
+import { useEffect } from "react";
 
 export const Header = () => {
 	const isAuthenticated = useAppSelector((s) => s.auth.isAuthenticated);
+	const session_id = useAppSelector((s) => s.auth.session_id);
 	const dispatch = useAppDispatch();
 	const theme = useTheme();
 	const nav = useNavigate();
 
+	useEffect(() => {
+		const checkAndDeleteSession = async () => {
+			if (session_id) {
+				const res = await dispatch(checkSession(session_id));
+				if (res.payload === "Session expired") {
+					alert("Session expired. Logging out");
+					dispatch(deleteSession(session_id));
+				}
+			}
+		};
+
+		if (session_id) {
+			checkAndDeleteSession();
+		}
+	}, [session_id]);
+
 	const handleLogOut = () => {
+		if (session_id) dispatch(deleteSession(session_id));
 		dispatch(deauthenticate());
 		nav("/");
 	};

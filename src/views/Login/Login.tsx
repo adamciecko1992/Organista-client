@@ -2,7 +2,6 @@ import React, { useState, ChangeEvent } from "react";
 import {
 	Copyright,
 	Container,
-	CssBaseline,
 	Box,
 	Typography,
 	TextField,
@@ -49,7 +48,7 @@ export const LogIn = () => {
 			const loginResult = await login(email, password);
 
 			if (loginResult?.status === 202) {
-				dispatch(authenticate(loginResult.data.session_id));
+				dispatch(authenticate(loginResult.data.sess_id));
 				nav("/dashboard/");
 			} else throw new Error(loginResult.response.data.detail);
 		} catch (err: any) {

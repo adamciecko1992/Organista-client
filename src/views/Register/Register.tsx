@@ -50,7 +50,7 @@ export const Register = () => {
 			const registerResult = await register(email, username, password);
 
 			if (registerResult?.status === 201) {
-				dispatch(authenticate(registerResult.data.session_id));
+				dispatch(authenticate(registerResult.data.sess_id));
 
 				nav("/dashboard/");
 			} else throw new Error(registerResult.response.data.detail);
