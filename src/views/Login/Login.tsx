@@ -2,7 +2,6 @@ import React, { useState, ChangeEvent } from "react";
 import {
 	Copyright,
 	Container,
-	CssBaseline,
 	Box,
 	Typography,
 	TextField,
@@ -14,19 +13,19 @@ import { useTranslationsContext } from "../../i18n/TranslationsContext";
 import { LoginInput } from "./types";
 import { AdditionalActions } from "./AdditionalActions";
 import { login } from "../../services/login";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../store";
 import { authenticate } from "../../store/AuthSlice/AuthSlice";
 
 export const LogIn = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const [error, setError] = useState(false);
+	const [error, setError] = useState({ show: false, message: "" });
 	const t = useTranslationsContext();
 
 	const dispatch = useAppDispatch();
 
-	const history = useHistory();
+	const nav = useNavigate();
 
 	const handleTextInput =
 		(key: LoginInput) =>
@@ -47,13 +46,13 @@ export const LogIn = () => {
 		try {
 			e.preventDefault();
 			const loginResult = await login(email, password);
-			if (loginResult?.status !== 202) throw new Error("LoginError");
-			
-			dispatch(authenticate(loginResult.data.session_id));
 
-			history.push("/dashboard/");
-		} catch (err) {
-			setError(true);
+			if (loginResult?.status === 202) {
+				dispatch(authenticate(loginResult.data.sess_id));
+				nav("/dashboard/");
+			} else throw new Error(loginResult.response.data.detail);
+		} catch (err: any) {
+			setError({ show: true, message: err.message });
 		}
 	};
 
@@ -70,12 +69,7 @@ export const LogIn = () => {
 				<Typography component="h1" variant="h5">
 					{t("login")}
 				</Typography>
-				<Box
-					component="form"
-					onSubmit={handleSubmit}
-					noValidate
-					sx={{ mt: 1 }}
-				>
+				<Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
 					<TextField
 						margin="normal"
 						required
@@ -84,6 +78,7 @@ export const LogIn = () => {
 						label="Email Address"
 						name="email"
 						autoComplete="email-address"
+						type="email"
 						autoFocus
 						value={email}
 						onChange={handleTextInput("email")}
@@ -112,7 +107,7 @@ export const LogIn = () => {
 					>
 						{t("login")}
 					</Button>
-					{error && "NIE PYKLO"}
+					{error.show && error.message}
 					<AdditionalActions />
 				</Box>
 			</Box>

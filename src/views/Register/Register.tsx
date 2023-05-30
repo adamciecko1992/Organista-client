@@ -11,17 +11,20 @@ import {
 import { useTranslationsContext } from "../../i18n/TranslationsContext";
 import { register } from "../../services/register";
 import { LoginInput } from "./types";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../store";
+import { authenticate } from "../../store/AuthSlice/AuthSlice";
 
 export const Register = () => {
 	const [email, setEmail] = useState("");
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
-	const [error, setError] = useState(false);
+	const [error, setError] = useState({ show: false, message: "" });
 
 	const t = useTranslationsContext();
 
-	const history = useHistory();
+	const nav = useNavigate();
+	const dispatch = useAppDispatch();
 
 	const handleTextInput =
 		(key: LoginInput) =>
@@ -45,11 +48,15 @@ export const Register = () => {
 		try {
 			e.preventDefault();
 			const registerResult = await register(email, username, password);
-			console.log(registerResult);
-			// if (registerResult?.status !== 201) throw new Error("Bad request");
-			// history.push("/dashboard/");
-		} catch (err) {
-			setError(true);
+
+			if (registerResult?.status === 201) {
+				dispatch(authenticate(registerResult.data.sess_id));
+
+				nav("/dashboard/");
+			} else throw new Error(registerResult.response.data.detail);
+		} catch (err: any) {
+			console.error(err);
+			setError({ show: true, message: err.message });
 		}
 	};
 
@@ -67,12 +74,7 @@ export const Register = () => {
 				<Typography component="h1" variant="h5">
 					{t("register")}
 				</Typography>
-				<Box
-					component="form"
-					onSubmit={handleSubmit}
-					noValidate
-					sx={{ mt: 1 }}
-				>
+				<Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
 					<TextField
 						margin="normal"
 						required
@@ -118,9 +120,9 @@ export const Register = () => {
 						{t("register")}
 					</Button>
 				</Box>
-				{error && "NIE UDAŁO SIE SORKA"}
+				{error.show && error.message}
 			</Box>
-			<Copyright/>
+			<Copyright />
 		</Container>
 	);
 };
