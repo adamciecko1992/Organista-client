@@ -6,6 +6,10 @@ import {
   Button,
   LinearProgress,
   Avatar,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
 } from "@mui/material";
 import { useAppDispatch } from "../../../store";
 import { useAppSelector } from "../../../store/useSelector";
@@ -15,8 +19,9 @@ import {
 } from "../../../store/AuthSlice/AuthSlice";
 import { useNavigate } from "react-router-dom";
 import { useTranslationsContext } from "../../../i18n/TranslationsContext";
+import React from "react";
 
-export const PlayerStats = () => {
+export const PlayerStats = React.forwardRef(() => {
   const dispatch = useAppDispatch();
   const nav = useNavigate();
   const { session_id } = useAppSelector((s) => s.auth);
@@ -29,12 +34,15 @@ export const PlayerStats = () => {
     dispatch(deauthenticate());
     nav("/");
   };
-  const hpPercentage = 80;
-  const moneyAmount = 1000;
 
   return (
     <Box
-      sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        maxWidth: 400,
+      }}
     >
       <Card sx={{ minWidth: 300, maxWidth: 400, padding: "20px" }}>
         <Box
@@ -61,15 +69,20 @@ export const PlayerStats = () => {
             Player Status
           </Typography>
           <Typography variant="body1" id="player-status-description">
-            <ul>
-              <li>Player Name: John Doe</li>
-              <li>
-                HP:
-                <LinearProgress variant="determinate" value={hpPercentage} />
-              </li>
-              <li>Money: ${moneyAmount}</li>
-              <li>Inventory: Alkohol, Koks i lasery</li>
-            </ul>
+            <List>
+              <ListItem>
+                <ListItemText primary="John Doe" secondary="Player Name" />
+              </ListItem>
+              <ListItem>
+                <ListItemText primary="80" secondary="HP" />
+              </ListItem>
+              <ListItem>
+                <ListItemText primary="$1000" secondary="Money" />
+              </ListItem>
+              <ListItem>
+                <ListItemText primary="Whatever" secondary="Inventory" />
+              </ListItem>
+            </List>
           </Typography>
         </CardContent>
         <Box
@@ -86,4 +99,4 @@ export const PlayerStats = () => {
       </Card>
     </Box>
   );
-};
+});
