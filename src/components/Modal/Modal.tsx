@@ -2,7 +2,7 @@ import Modal from "@mui/material/Modal";
 import { useAppSelector } from "../../store/useSelector";
 import { useAppDispatch } from "../../store";
 import { hideModal } from "../../store/ModalSlice/ModalSlice";
-import { PlayerStats } from "./ModalViews/PlayerStats";
+import { Player } from "./ModalViews/Player";
 
 const MainModal = () => {
   const { isActive, currentModal } = useAppSelector((s) => s.modal);
@@ -20,10 +20,10 @@ const MainModal = () => {
       aria-describedby="modal-description"
       onBackdropClick={handleClose}
       sx={{
-        margin: "5% 50%",
+        margin: "8% 50%",
       }}
     >
-      {currentModal === "Player" ? <PlayerStats /> : <div />}
+      {currentModal === "Player" ? <Player /> : <div />}
     </Modal>
   );
 };

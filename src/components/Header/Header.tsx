@@ -1,15 +1,11 @@
-import { Button, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material";
 import { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Box, Typography } from "..";
+import { Link } from "react-router-dom";
+import { Box } from "..";
 import logoImage from "../../assets/logo.jpg";
 import { useAppDispatch } from "../../store";
-import {
-  checkSession,
-  deauthenticate,
-  deleteSession,
-} from "../../store/AuthSlice/AuthSlice";
-import PlayerAvatar from "../PlayerManager/PlayerManager";
+import { checkSession, deleteSession } from "../../store/AuthSlice/AuthSlice";
+import PlayerButton from "../PlayerManager/PlayerButton";
 import { useAppSelector } from "../../store/useSelector";
 
 export const Header = () => {
@@ -60,7 +56,7 @@ export const Header = () => {
       </Link>
       {isAuthenticated && (
         <Box sx={{ marginRight: "3rem" }}>
-          <PlayerAvatar />
+          <PlayerButton />
         </Box>
       )}
     </Box>

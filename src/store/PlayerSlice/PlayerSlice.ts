@@ -4,34 +4,37 @@ import serverUrl from "../../services/serverUrl";
 
 export const getPlayerStats = createAsyncThunk(
   "player/getData",
-  async (session: string) => {
+  async (userName: string) => {
     try {
-      return await axios({
-        method: "delete",
-        url: `${serverUrl}/player/getData`,
-        data: {
-          session,
-        },
+      const result = await axios({
+        method: "get",
+        url: `${serverUrl}/player_data/player/${userName}`,
       });
+      return result.data;
     } catch (error: any) {
-      return error;
+      return null;
     }
   }
 );
 
-export const authSlice = createSlice({
+type PlayerSliceState = {
+  player: any;
+};
+
+export const playerSlice = createSlice({
   name: "player",
-  initialState: {
-    playerStats: null,
-  } as any,
+  initialState: { player: null } as PlayerSliceState,
   reducers: {
     setStats(state, action) {
-      state.playerStats = action.payload;
+      state.player = action.payload;
     },
   },
   extraReducers(builder) {
     builder.addCase(getPlayerStats.fulfilled, (state, action) => {
-      authSlice.caseReducers.setStats(state, action.payload);
+      state.player = action.payload;
+    });
+    builder.addCase(getPlayerStats.rejected, (state) => {
+      state.player = null;
     });
   },
 });
