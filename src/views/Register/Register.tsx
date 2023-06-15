@@ -17,7 +17,6 @@ import { authenticate } from "../../store/AuthSlice/AuthSlice";
 
 export const Register = () => {
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState({ show: false, message: "" });
 
@@ -36,9 +35,6 @@ export const Register = () => {
         case "password":
           setPassword(inputValue);
           break;
-        case "username":
-          setUsername(inputValue);
-          break;
         default:
           throw new Error("Unknown input.");
       }
@@ -47,15 +43,15 @@ export const Register = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
-      const registerResult = await register(email, username, password);
+      const registerResult = await register(email, password);
 
       if (registerResult?.status === 201) {
         dispatch(
-          authenticate({ session_id: registerResult.data.sess_id, username })
+          authenticate({ session_id: registerResult.data.sess_id })
         );
 
         nav("/dashboard/");
-      } else throw new Error(registerResult.response.data.detail);
+      } else throw new Error(registerResult.response.data.detail.mess);
     } catch (err: any) {
       console.error(err);
       setError({ show: true, message: err.message });
@@ -89,17 +85,6 @@ export const Register = () => {
             autoComplete="email-address"
             value={email}
             onChange={handleTextInput("email")}
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="username"
-            label="User Name"
-            name="username"
-            autoComplete="username"
-            value={username}
-            onChange={handleTextInput("username")}
           />
           <TextField
             margin="normal"

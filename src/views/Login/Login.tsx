@@ -56,7 +56,7 @@ export const LogIn = () => {
         );
 
         nav("/dashboard/");
-      } else throw new Error(loginResult.response.data.detail);
+      } else throw new Error(loginResult.response.data.detail.mess);
     } catch (err: any) {
       setError({ show: true, message: err.message });
     }

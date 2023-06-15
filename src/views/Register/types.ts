@@ -1,1 +1,1 @@
-export type LoginInput = "email" | "username" | "password";
+export type LoginInput = "email" | "password";

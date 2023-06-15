@@ -2,22 +2,18 @@ import axios from "axios";
 import HashPassword from "../utils/hashing";
 import serverUrl from "./serverUrl";
 
-export async function register(
-	email: string,
-	username: string,
-	password: string
-) {
+export async function register(email: string, password: string) {
 	try {
 		const res = await axios({
 			method: "post",
 			headers: {
-				"Accept": "application/json",
+				Accept: "application/json",
 				"Content-Type": "application/json",
 			},
 			url: `${serverUrl}/register/`,
 			data: {
 				email,
-				username,
+				username: "",
 				password: HashPassword(password),
 			},
 		});
