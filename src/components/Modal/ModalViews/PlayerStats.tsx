@@ -8,8 +8,11 @@ import {
   ListItemText,
 } from "@mui/material";
 import React from "react";
+import { useAppSelector } from "../../../store/useSelector";
 
 export const PlayerStats = React.forwardRef(() => {
+  const { player } = useAppSelector((s) => s.player)
+
   return (
     <>
       <Box
@@ -29,13 +32,13 @@ export const PlayerStats = React.forwardRef(() => {
       </Typography>
       <List>
         <ListItem>
-          <ListItemText primary="John Doe" secondary="Player Name" />
+          <ListItemText primary={player.username} secondary="Player Name" />
         </ListItem>
         <ListItem>
-          <ListItemText primary="80" secondary="HP" />
+          <ListItemText primary={player.hp} secondary="HP" />
         </ListItem>
         <ListItem>
-          <ListItemText primary="$1000" secondary="Money" />
+          <ListItemText primary={player.money} secondary="Money" />
         </ListItem>
         <ListItem>
           <ListItemText primary="Whatever" secondary="Inventory" />
