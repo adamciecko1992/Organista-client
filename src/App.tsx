@@ -1,4 +1,10 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import {
+	BrowserRouter,
+	Navigate,
+	Route,
+	Routes,
+	createBrowserRouter,
+} from "react-router-dom";
 import { Dashboard } from "./views/Dashboard/Dashboard";
 import { LogIn } from "./views/Login/Login";
 import { Register } from "./views/Register/Register";
@@ -22,19 +28,21 @@ function App() {
 					<Routes>
 						<Route path="/" element={<LogIn />} />
 						<Route path="/register" element={<Register />} />
-						<Route
-							path="/dashboard"
-							element={
-								isAuthenticated ? (
-									<Dashboard />
-								) : (
-									<Navigate to="/" replace />
-                  )
-							}
-						/>
-						<Route path="garage/" element={<Garage />} />
-						<Route path="shop/" element={<Shop />} />
-						<Route path="clinic/" element={<Clinic />} />
+						<Route path="/dashboard/">
+              <Route
+                index
+								element={
+									isAuthenticated ? (
+										<Dashboard />
+									) : (
+										<Navigate to="/" replace />
+									)
+								}
+							/>
+							<Route path="garage/" element={<Garage />} />
+							<Route path="shop/" element={<Shop />} />
+							<Route path="clinic/" element={<Clinic />} />
+						</Route>
 					</Routes>
 				</Layout>
 			</ThemeProvider>
