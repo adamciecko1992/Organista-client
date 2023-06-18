@@ -24,12 +24,12 @@ export default function Garage() {
 		>
 			<Grid
 				container
-				spacing={6}
+				spacing={2}
 				justifyContent="center"
 				className="ShopMain"
 			>
 				{cardData.map((card, index) => (
-					<Grid item key={index} xs={6} sm={3} md={2}>
+					<Grid item key={index} xs={6} sm={3} md={4}>
 						<Card
 							sx={{
 								display: "flex",

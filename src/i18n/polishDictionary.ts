@@ -18,4 +18,6 @@ export const polishDictionary: Dictionary = {
 	tool4: "Narzędzie lvl 4",
 	tool5: "Narzędzie lvl 5",
 	tool6: "Narzędzie lvl 6",
+	staff: "Zespół Medyczny",
+	storage: "Magazyn"
 };

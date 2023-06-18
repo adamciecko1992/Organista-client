@@ -16,6 +16,8 @@ export const defaultDictionary = {
 	tool4: "Tool lvl 4",
 	tool5: "Tool lvl 5",
 	tool6: "Tool lvl 6",
+	staff: "Staff",
+	storage: "Storage",
 };
 
 export type Dictionary = typeof defaultDictionary;
